@@ -1,0 +1,42 @@
+main{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+
+    background-color: rgba(255,255,255,0.5);
+}
+
+.newses{
+    margin: 5px;
+    width: 200px;
+    &:first-child{
+        margin-top: 0;
+    }
+    h2{
+        margin: 0;
+        padding: 0;
+    }
+    .news{
+        margin: 0;
+        padding: 0;
+        margin-top: 3px;
+        //border: 1px solid #000;
+        background-color: #9db8a2;
+        h3{
+            margin: 0;
+            padding: 0;
+            background-color: #967676;
+        }
+        p{
+            margin: 0;
+            //border: 1px solid #000;
+            padding: 5px;
+            text-align: justify;
+        }
+    }
+}
+
+.content{
+    border: 1px solid #000;
+
+    margin: 5px;
+}

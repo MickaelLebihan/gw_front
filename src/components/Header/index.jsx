@@ -1,0 +1,12 @@
+import React from 'react'
+import './index.scss'
+
+export default function index() {
+  return (
+    <header>
+        <div className="inner">
+            header
+        </div>
+    </header>
+  )
+}
