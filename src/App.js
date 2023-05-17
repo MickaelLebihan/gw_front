@@ -8,9 +8,14 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-        </Routes>
+        <main>
+
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+          </Routes>
+
+        </main>
+        {/* <Footer /> */}
       </div>
     </BrowserRouter>
   );

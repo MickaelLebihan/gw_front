@@ -11,6 +11,15 @@ body {
   background-color: #c1cec3;
 }
 
+main{
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+
+  background-color: rgba(255,255,255,0.5);
+  max-width: 1080px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

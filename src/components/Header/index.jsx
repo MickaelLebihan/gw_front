@@ -1,11 +1,14 @@
 import React from 'react'
+import MainMenu from '../MainMenu'
+import { Link } from 'react-router-dom'
 import './index.scss'
 
 export default function index() {
   return (
     <header>
         <div className="inner">
-            header
+            <Link to={"/"}><img src="/logo192.png" alt="" /></Link>
+            <MainMenu />
         </div>
     </header>
   )
