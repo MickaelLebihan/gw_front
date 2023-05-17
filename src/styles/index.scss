@@ -1,4 +1,4 @@
-$col: #12f;
+@import './variables.scss';
 
 body {
   margin: 0;
@@ -15,7 +15,8 @@ code {
 }
 
 .test{
-  background-color: $col;
+  color: $col;
+  background-color: $bgCol;
   width: 100px;
   height: 100px;
 }
