@@ -1,7 +1,8 @@
 import './styles/index.scss';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Home from './routes/Home'
 import Header from './components/Header'
+import Home from './routes/Home'
+import Catalog from './routes/Catalog'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="/games" element={<Catalog/>}/>
           </Routes>
 
         </main>

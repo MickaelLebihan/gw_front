@@ -9,7 +9,7 @@ export default function index() {
         <nav>
             <ul>
                 <li><Link to={"/"} >accueil</Link></li>
-                <li><Link to={"/"} >jeux</Link></li>
+                <li><Link to={"/games"} >jeux</Link></li>
                 <li><Link to={"/"} >à propos</Link></li>
             </ul>
         </nav>

@@ -7,7 +7,7 @@ export default function index() {
   return (
     <header>
         <div className="inner">
-            <Link to={"/"}><img src="/logo192.png" alt="" /></Link>
+            <Link to={"/"}><img className='logo' src="/assets/gamesoft.png" alt="" /></Link>
             <MainMenu />
         </div>
     </header>

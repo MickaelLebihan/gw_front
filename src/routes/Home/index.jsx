@@ -3,7 +3,7 @@ import './index.scss'
 
 export default function index() {
   return (
-    <>
+    <div className='home'>
       <div className="newses">
           <h2>news</h2>
           <div className="news">
@@ -30,6 +30,6 @@ export default function index() {
       <div className="content">
         <h3>contenu principal</h3>
       </div>
-    </>
+    </div>
   )
 }
