@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import News from './News'
 import axios from 'axios'
+import {nanoid} from 'nanoid'
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -24,7 +25,7 @@ export default function Index() {
     }, [])
 
     var newsList = news.map((anews => {
-        return <News {...anews}/>
+        return <News {...anews} key={nanoid()}/>
     }))
 
   return (

@@ -4,6 +4,7 @@ import axios from 'axios'
 import './index.scss'
 
 import Game from './Game/Game';
+import { nanoid } from 'nanoid';
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -15,7 +16,7 @@ export default function Index() {
     const [games, setGames] = useState([])
 
     var gamesList = games.map((game) => {
-        return <Game {...game}/>
+        return <Game {...game}  key={nanoid()}/>
     })
 
     function getAllGames() {
@@ -24,7 +25,7 @@ export default function Index() {
         .then(data =>{
             setGamesLoaded(true)
             setGames(data)
-            console.log(data)
+            //console.log(data)
         })
         .catch((e) => {
             console.log(e.message)
