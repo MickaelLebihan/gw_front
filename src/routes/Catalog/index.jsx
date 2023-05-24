@@ -1,47 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
+import { nanoid } from 'nanoid'
 import axios from 'axios'
+
+import Game from './Game/Game'
 
 import './index.scss'
 
-import Game from './Game/Game';
-import { nanoid } from 'nanoid';
-
 const apiURL = process.env.REACT_APP_API_URL;
 
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
+const Index = () => {
+    const {isLoading, data, isError, error} = useQuery('games', () => { return axios.get(`${apiURL}/api/games`)})
 
-export default function Index() {
-
-    const [gamesLoaded, setGamesLoaded] = useState(false)
-    const [games, setGames] = useState([])
-
-    var gamesList = games.map((game) => {
-        return <Game {...game}  key={nanoid()}/>
-    })
-
-    function getAllGames() {
-        axios.get(`${apiURL}/api/games`)
-        .then(response => response.data)
-        .then(data =>{
-            setGamesLoaded(true)
-            setGames(data)
-            //console.log(data)
-        })
-        .catch((e) => {
-            console.log(e.message)
-        })
+    if (isLoading) {
+        return <h2>En cours de chargement</h2>
     }
 
-    useEffect(() => {
-        getAllGames()
-    }, [])
+    if (isError) {
+        return <h2>{error.message}</h2>
+    }
 
   return (
     <div className='catalog'>
         <h2>Catalogue</h2>
         <div className="games-row">
-            {gamesLoaded ? gamesList : <p>Les jeux sont en cours de chargement</p>}
-        </div>
+        {data?.data.map((game) => {
+            return <Game {...game}  key={nanoid()}/>
+        })}
+    </div>
     </div>
   )
 }
+
+export default Index

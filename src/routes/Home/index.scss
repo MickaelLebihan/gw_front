@@ -2,9 +2,9 @@
 .home{
   display: grid;
   grid-template-columns: 1fr 5fr;
+  gap: 10px;
 }
 .newses{
-    margin: 5px;
     width: 200px;
     grid-column: 1;
     &:first-child{
@@ -37,6 +37,4 @@
 .content{
     grid-column: 2/5;
     border: 1px solid #000;
-
-    margin: 5px;
 }

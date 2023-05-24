@@ -1,0 +1,77 @@
+.loginBox{
+    //border: 1px solid #000;
+    position: absolute;
+
+    //width: 200px;
+
+    bottom: -200px;
+    right: 20px;
+
+    padding: 10px;
+
+    border-radius: 5px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.582);
+
+    background-color: #a3a3a3;
+    z-index: 8;
+
+    form{
+        //border: 1px solid #000;
+        
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 2fr 2fr 1fr;
+
+        gap: 5px;
+
+        margin-top: 10px;
+
+        // grid-auto-flow: column;
+        .inputGroup{
+            grid-column: 1/4;
+            display: grid;
+            grid-template-columns: 1fr;
+            //border: 1px solid #000;
+            label{
+                //border: 1px solid #000;
+            }
+    
+            input{
+                //border: 1px solid #000;
+            }
+        }
+
+        button{
+            grid-row: 3;
+            grid-column: 3/4;
+        }
+
+        
+    }
+    .closeBtn{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 50%;
+
+        width: 20px;
+        height: 20px;
+
+        color: #fff;
+        background-color: #bd2b2b;
+
+        box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.616);
+
+        cursor: pointer;
+        p{
+            position: relative;
+            top: -2px;
+        }
+    }
+}

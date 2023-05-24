@@ -1,22 +1,99 @@
-ul{
-    list-style-type: none;
-    li{
-        margin-right: 5px;
-        a{
-            width: 100px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #fff;
-            background-color: #d49050;
-            font-weight: bold;
+@import '../../styles/variables.scss';
+
+.mainMenu{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    //margin-left: 200px;
+
+    //border: 1px solid #000;
+    justify-content: space-between;
+    .mainNav{
+        margin: 0;
+        padding: 0;
+        padding-left: 200px;
+        //justify-self: flex-start;
+    }
+
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        display: flex;
+        justify-self: flex-start;
+        flex-direction: row;
+        li{
+            margin-right: 5px;
+            a{
+                // width: 100px;
+                // height: 50px;
+                // display: flex;
+                // align-items: center;
+                // justify-content: center;
+                // text-decoration: none;
+                // color: #fff;
+                // background-color: #d49050;
+                // font-weight: bold;
+            }
+            &:hover{
+                a{
+                    color: #d49050;
+                    background-color: #fff;
+                }
+            }
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+    }
+
+    .btn{
+        width: 100px;
+        height: 30px;
+        display: flex;
+        align-self: flex-end;
+
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: $bright;
+        font-weight: bold;
+        border-radius: 5px;
+
+        box-shadow: 2px 2px 0 rgb(0, 65, 0);
+        &:hover{
+            color: $bright;
+            background-color: #fff;
+        }
+    }
+
+    .userMenu{
+        justify-self: flex-end;
+        
+        .menuBtn{
+            position: relative;            
+        }
+        .menu{
+            //border: 1px solid #000;
+            position: absolute;
+            display: none;
+            ul{
+                display: grid;
+                margin-top: 4px;
+                grid-template-columns: 8fr;
+                li{
+                    border-radius: 0;
+                    margin-bottom: 4px;
+                }
+            }
+        }
+        .loginBtn{
+            cursor: pointer;
         }
         &:hover{
-            a{
-                color: #d49050;
-                background-color: #fff;
+            .menu{
+                display: block;
             }
         }
     }
