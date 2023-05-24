@@ -25,12 +25,10 @@ export default function Index() {
         .then(() => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
             axios.get(`${apiURL}/api/auth/user`).then(response => {
-                const user =  response.data.user
-                const roles =  response.data.roles
+                const user =  response.data
                 console.log(user)
                 queryClient.setQueryData('user', user)
                 localStorage.setItem('user', JSON.stringify(user));
-                queryClient.setQueryData('roles', roles)
             })
         })
     }

@@ -9,22 +9,7 @@ const apiURL = process.env.REACT_APP_API_URL;
 
 export default function Index() {
   const {data: user} = useQuery('user')
-  const {data: roles} = useQuery('roles')
-  
-  // const {isLoading, data, isError, error} = useQuery('user', () => {
-  //   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-  //   return axios.get(`${apiURL}/api/auth/user`)
-  // })
-
-  
-
-  // if (isLoading) {
-  //     return <h2>En cours de chargement</h2>
-  // }
-
-  // if (isError) {
-  //     return <h2>{error.message}</h2>
-  // }
+  const {data: roles} = useQuery('roles')  
 
   // const userData = !isLoading ? data.data : null
   if (!user){
@@ -32,10 +17,18 @@ export default function Index() {
     return <p>l'utilisateur n'est pas chargé</p>
   }
 
-  // if (!roles){
-  //   // return redirect("/")
-  //   return <p>l'utilisateur n'as pas de rôle</p>
-  // }
+  var gameMenu = null;
+  if (user.roles.find(role => role=="ADMIN")){
+    // return redirect("/")
+    gameMenu = 
+      <div className="gameMenu">
+        <h3>menu jeu</h3>
+        <div className="btn">ajouter</div>
+        <div className="btn">éditer</div>
+        <div className="btn">supprimer</div>
+      </div>
+    //return gameMenu
+  }
 
 
   return (
@@ -48,13 +41,8 @@ export default function Index() {
           <p>email: {user.email}</p>
         </div>
         
-          {/* <p>role: {roles[0]}</p> */}
-          <div className="gameMenu">
-            <h3>menu jeu</h3>
-            <div className="btn">ajouter</div>
-            <div className="btn">éditer</div>
-            <div className="btn">supprimer</div>
-          </div>
+        <p>role: {user.roles}</p>
+        {gameMenu}
       </div>
     </div>
   )
