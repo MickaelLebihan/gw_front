@@ -8,6 +8,7 @@ import Catalog from './routes/Catalog'
 import User from './routes/User'
 import Favorites from './routes/User/Favorites'
 import Login from './routes/Login'
+import Game from './routes/Game'
 
 const queryClient = new QueryClient()
 
@@ -43,6 +44,7 @@ function App() {
                 <Route path="profil" element={<User/>}/>
                 <Route path="favorites" element={<Favorites/>}/>
               </Route>
+              <Route path="/game/:id" element={<Game />} />
             </Routes>
 
           </main>

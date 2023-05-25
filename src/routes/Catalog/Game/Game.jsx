@@ -1,12 +1,14 @@
 import React from 'react'
 import './game.scss'
 import { nanoid } from 'nanoid'
+import { Link } from 'react-router-dom'
 
-export default function Game({title, description, gameEngine, platforms}) {
+export default function Game({id, title, description, gameEngine, platforms}) {
     var platformsList = platforms.map((platform)=>{
         return (<div className={"platform " + platform.name} key={nanoid()}>{platform.name}</div>)
     })
   return (
+    <Link to={"/game/"+id}>
         <div className="game">
             <header>
                 <h3>{title}</h3>
@@ -19,5 +21,6 @@ export default function Game({title, description, gameEngine, platforms}) {
             </header>
             <p>{description}</p>
         </div>
+    </Link>
     )
 }
