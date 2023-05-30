@@ -1,15 +1,11 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { redirect } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import UserMenu from './UserMenu'
-import axios from 'axios';
-
-const apiURL = process.env.REACT_APP_API_URL;
 
 export default function Index() {
   const {data: user} = useQuery('user')
-  const {data: roles} = useQuery('roles')  
 
   // const userData = !isLoading ? data.data : null
   if (!user){
@@ -18,12 +14,12 @@ export default function Index() {
   }
 
   var gameMenu = null;
-  if (user.roles.find(role => role=="ADMIN")){
+  if (user.roles.includes("ADMIN")){
     // return redirect("/")
     gameMenu = 
       <div className="gameMenu">
         <h3>menu jeu</h3>
-        <div className="btn">ajouter</div>
+        <Link className="btn" to={"/game/add"}>ajouter</Link>
         <div className="btn">éditer</div>
         <div className="btn">supprimer</div>
       </div>

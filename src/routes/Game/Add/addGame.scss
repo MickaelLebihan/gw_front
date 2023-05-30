@@ -1,0 +1,28 @@
+.addGameForm{
+    form{
+        display: grid;
+        grid-template-columns: 2fr 2fr 2fr;
+        gap: 10px;
+        .simpleFormField{
+            grid-column-start: 1;
+            grid-column-end: 4;
+
+            column-span: 2;
+            //border: 1px solid #000;
+            display: grid;
+            
+            label{
+                
+                //border: 1px solid #000;
+            }
+            textarea, input{
+                margin-top: 10px;
+                margin-left: 10px;
+            }
+        }
+        button{
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+    }
+}

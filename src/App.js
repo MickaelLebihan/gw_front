@@ -1,7 +1,6 @@
 import './styles/index.scss';
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
-import { QueryClientProvider, QueryClient } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { QueryClient, useQuery} from 'react-query'
 import Header from './components/Header'
 import Home from './routes/Home'
 import Catalog from './routes/Catalog'
@@ -9,23 +8,27 @@ import User from './routes/User'
 import Favorites from './routes/User/Favorites'
 import Login from './routes/Login'
 import Game from './routes/Game'
+import AddGame from './routes/Game/Add'
+import { useState } from 'react';
 
-const queryClient = new QueryClient()
 
-const initializeCache = () => {
-  const user = localStorage.getItem('user');
-  
-  if (user) {
-    // L'utilisateur est connecté, stockez les informations dans le cache de React Query
-    queryClient.setQueryData('user', JSON.parse(user));
-  }
-}
 
 function App() {
-  initializeCache()
+  
+  
+  const {data: user} = useQuery('user')
+  const {loaded, setLoaded} = useState(false)
+
+
+  if(user){
+    console.log(user)
+   if (user.roles.includes("ADMIN")){
+      // setLoaded(true)
+    }
+  }
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+    
         <div className="App">
           <Header />
           <main>
@@ -33,26 +36,25 @@ function App() {
             <Routes>
               <Route path="/">
                 <Route index element={<Home/>}/>
-                <Route path="games" element={<Catalog/>}/>
                 <Route path="login" element={<Login/>}/>
-                {/* <Route
-                    path="/redirect"
-                    element={ <Navigate to="/" /> }
-                /> */}
               </Route>
               <Route path="/user">
                 <Route path="profil" element={<User/>}/>
                 <Route path="favorites" element={<Favorites/>}/>
               </Route>
+              <Route path="games" element={<Catalog/>}/>
               <Route path="/game/:id" element={<Game />} />
+              <Route path="/game/add" element={user !== undefined && user.roles.includes("ADMIN") ? <AddGame /> : <Navigate to="/" replace />} />
+              <Route
+                    path="*"
+                    element={<Navigate to="/" replace />}
+                />
             </Routes>
 
           </main>
           {/* <Footer /> */}
         </div>
-      </BrowserRouter>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+
   );
 }
 

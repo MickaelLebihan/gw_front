@@ -1,6 +1,5 @@
 import React from 'react'
 import MainMenu from '../MainMenu'
-import LoginBox from '../MainMenu/LoginBox'
 import { Link } from 'react-router-dom'
 import './index.scss'
 

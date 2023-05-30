@@ -13,7 +13,7 @@ export default function Game({id, title, description, gameEngine, platforms}) {
             <header>
                 <h3>{title}</h3>
                 <div className="info">
-                    <span className='gameEngine'>{gameEngine.name}</span>
+                    {gameEngine && <span className='gameEngine'>{gameEngine.name}</span>}
                     <div className="platforms">
                         {platformsList}
                     </div>

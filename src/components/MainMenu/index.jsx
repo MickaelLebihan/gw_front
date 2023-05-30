@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 // import LoginBox from './LoginBox'
 
 import './index.scss'
@@ -6,11 +6,6 @@ import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 export default function Index() {
-
-  const queryClient = useQuery()
-
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [loginBoxDisplayed, setLoginBoxDisplayed] = useState(false)
 
   const {data: user} = useQuery('user')
 
@@ -23,14 +18,6 @@ export default function Index() {
       </ul>
   </div>
   )
-
-  // function loginBoxDisplay(){
-  //     setDisplayed(!displayed)
-  // }
-
-  function showLoggInBox(){
-    setLoginBoxDisplayed(!loginBoxDisplayed)
-  }
 
   return (
     <div className='mainMenu'>
