@@ -19,8 +19,8 @@ export default function Game({isUser, id, title, description, gameEngine, platfo
     return "remove"
   }
   
-  const addToFavorite = (id) => <button onClick={() => localAddAction(id)}><img src='/assets/nofavs.png'/></button>
-  const removeFromfavorite = (id) => <button onClick={() => localRemoveAction(id)}><img src='/assets/favs.png'/></button>
+  const addToFavorite = (id) => <button onClick={() => localAddAction(id)}><img src='/assets/nofavs.png'alt='not in favorites'/></button>
+  const removeFromfavorite = (id) => <button onClick={() => localRemoveAction(id)}><img src='/assets/favs.png'alt='in favorites'/></button>
 
   return (
       <div className="game">

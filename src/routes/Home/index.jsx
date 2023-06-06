@@ -1,12 +1,12 @@
 import React from 'react'
 import News from '../../components/News'
 import './index.scss'
-import { useQueryClient } from 'react-query'
+// import { useQueryClient } from 'react-query'
 
 export default function Index() {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   //const games = useQuery("games")
-  const query = queryClient.getQueryData("games")
+  // const query = queryClient.getQueryData("games")
   return (
     <div className='home'>
       <News />

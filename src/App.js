@@ -1,6 +1,6 @@
 import './styles/index.scss';
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { QueryClient, useQuery} from 'react-query'
+import { useQuery} from 'react-query'
 import Header from './components/Header'
 import Home from './routes/Home'
 import Catalog from './routes/Catalog'
@@ -9,7 +9,7 @@ import Favorites from './routes/User/Favorites'
 import Login from './routes/Login'
 import Game from './routes/Game'
 import AddGame from './routes/Game/Add'
-import { useState } from 'react';
+// import { useState } from 'react';
 
 
 
@@ -17,7 +17,7 @@ function App() {
   
   
   const {data: user} = useQuery('user')
-  const {loaded, setLoaded} = useState(false)
+  // const {loaded, setLoaded} = useState(false)
 
 
   if(user){
