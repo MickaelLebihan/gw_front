@@ -23,7 +23,6 @@ export default function Index() {
     if (isLoading) {
         return <h2>En cours de chargement</h2>
     } else {
-        console.log(data)
         const {id, title, description} = data.data
         if(user){
             var actionGameButton = user.roles.includes("ADMIN") && <>

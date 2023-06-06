@@ -2,19 +2,24 @@ import React from 'react'
 // import LoginBox from './LoginBox'
 
 import './index.scss'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 export default function Index() {
 
   const {data: user} = useQuery('user')
 
+  const logout = () => {
+    console.log("logout")
+    return redirect("/")
+  }
+
   const menu= (
     <div className='menu'>
       <ul>
         <li><Link className='btn' to={"/user/profil"} >profil</Link></li>
         <li><Link className='btn' to={"/user/favorites"} >favoris</Link></li>
-        <li><Link className='btn' to={"/logout"} >log out</Link></li>
+        <li><Link className='btn' onClick={()=>logout()} /*to={"/logout"}*/ >log out</Link></li>
       </ul>
   </div>
   )

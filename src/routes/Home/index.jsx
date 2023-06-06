@@ -14,7 +14,6 @@ export default function Index() {
         <h3>contenu principal</h3>
         {/* <p>bienvenu {user.username}</p> */}
       </div>
-      {query !== undefined && query.data[0].title}
     </div>
   )
 }

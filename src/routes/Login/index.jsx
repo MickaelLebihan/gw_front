@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import { useQueryClient } from 'react-query';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -19,17 +19,19 @@ export default function Index() {
         }
         axios.post(`${apiURL}/api/auth/login`, user)
         .then(response => {
-            
             return localStorage.setItem("token", response.data)
         })
         .then(() => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-            axios.get(`${apiURL}/api/auth/user`).then(response => {
+            axios.get(`${apiURL}/user`).then(response => {
                 const user =  response.data
                 console.log(user)
                 queryClient.setQueryData('user', user)
                 localStorage.setItem('user', JSON.stringify(user));
             })
+        })
+        .then(()=>{
+            Navigate("/")
         })
     }
 

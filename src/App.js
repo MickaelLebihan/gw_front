@@ -21,7 +21,7 @@ function App() {
 
 
   if(user){
-    console.log(user)
+    // console.log(user)
    if (user.roles.includes("ADMIN")){
       // setLoaded(true)
     }
