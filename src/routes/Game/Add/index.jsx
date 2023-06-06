@@ -4,13 +4,13 @@ import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 
 import './addGame.scss'
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const apiURL = process.env.REACT_APP_API_URL;
 
 export default function Index() {
 
-    const {data: user} = useQuery('user')
+    // const {data: user} = useQuery('user')
 
     
     const [newEngine, setNewEngine] = useState(false)

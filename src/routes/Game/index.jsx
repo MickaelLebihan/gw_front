@@ -13,7 +13,7 @@ export default function Index() {
     const {data: user} = useQuery('user') 
 
     const {id} = useParams();
-    const {isLoading, data, isError, error} = useQuery('game', () => { return axios.get(`${apiURL}/api/game/${id}`)})
+    const {isLoading, data/*, isError, error*/} = useQuery('game', () => { return axios.get(`${apiURL}/api/game/${id}`)})
 
     
 
@@ -39,9 +39,9 @@ export default function Index() {
            )
     }
 
-    if (isError) {
-        return <h2>{error.message}</h2>
-    }
+    // if (isError) {
+    //     return <h2>{error.message}</h2>
+    // }
 
   
 }
