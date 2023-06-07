@@ -25,7 +25,7 @@ export default function Game({isUser, isAdmin, id, title, gameEngine, platforms,
   const [favoriteCount, setFavoriteCount] = useState(0)
   const [favoriteLoaded, setFavoriteLoaded] = useState(false)
 
-  var x = isAdmin && axios.get(`${apiURL}/api/game/${slug_Title}/countFavorites`).then(response =>{
+  isAdmin && axios.get(`${apiURL}/api/game/${slug_Title}/countFavorites`).then(response =>{
     setFavoriteLoaded(true)
     return setFavoriteCount(response.data)
   })

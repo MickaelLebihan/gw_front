@@ -16,7 +16,7 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem(
 const Index = () => {
 
   var isAdmin = false
-  var isStaff = false
+  // var isStaff = false
 
   const { data: user } = useQuery('user');
 
@@ -67,7 +67,7 @@ const Index = () => {
   };
 
   if (user) {
-    isStaff = user.roles.includes('ADMIN') || user.roles.includes('CM') || user.roles.includes('PRODUCER') ? true : false;
+    // isStaff = user.roles.includes('ADMIN') || user.roles.includes('CM') || user.roles.includes('PRODUCER') ? true : false;
     isAdmin = user.roles.includes('ADMIN') ;
   }
 

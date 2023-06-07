@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import { useQueryClient } from 'react-query';
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const apiURL = process.env.REACT_APP_API_URL;
 
