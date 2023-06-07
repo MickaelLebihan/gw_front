@@ -58,7 +58,7 @@ export default function Index(props) {
             <button>ok</button>
 
         </form>
-        <Link to={""}>S'inscrire</Link>
+        <Link to={"/user/register"}>S'inscrire</Link>
     </div>
   )
 }

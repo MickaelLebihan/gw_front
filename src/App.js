@@ -4,9 +4,10 @@ import { useQuery} from 'react-query'
 import Header from './components/Header'
 import Home from './routes/Home'
 import Catalog from './routes/Catalog'
-import User from './routes/User'
+import Profile from './routes/User/Profile'
 import Favorites from './routes/User/Favorites'
-import Login from './routes/Login'
+import Register from './routes/User/Register'
+import Login from './routes/User/Login'
 import Game from './routes/Game'
 import AddGame from './routes/Game/Add'
 // import { useState } from 'react';
@@ -36,11 +37,12 @@ function App() {
             <Routes>
               <Route path="/">
                 <Route index element={<Home/>}/>
-                <Route path="login" element={<Login/>}/>
               </Route>
               <Route path="/user">
-                <Route path="profil" element={<User/>}/>
+                <Route path="login" element={<Login/>}/>
+                <Route path="profil" element={<Profile/>}/>
                 <Route path="favorites" element={<Favorites/>}/>
+                <Route path="register" element={<Register/>}/>
               </Route>
               <Route path="games" element={<Catalog/>}/>
               <Route path="/game/:id" element={<Game />} />

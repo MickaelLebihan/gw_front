@@ -16,23 +16,28 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem(
 const Index = () => {
 
   var isAdmin = false
+  var isStaff = false
 
   const { data: user } = useQuery('user');
 
   const fetchFavorites = async () => {
-    if (user) {
+    if (user && !user.roles.includes("ADMIN")) {
+      
       return getFavorites();
     }
   };
 
   const queryClient = useQueryClient();
+
+  const fetchGameData = async () => {
+    const data = axios.get(`${apiURL}/api/games`);
+    return data
+  }
   
-  const { isLoading: isLoadingGames, data: games, isError: isErrorGames, error: errorGames } = useQuery('games', () => {
-    return axios.get(`${apiURL}/api/games`);
-  });
+  const { isLoading: isLoadingGames, data: games, isError: isErrorGames, error: errorGames } = useQuery('games', fetchGameData);
 
   const { isLoading: isLoadingFavorites, data: favorites, isError: isErrorFavorites, error: errorFavorites } = useQuery('favorites', () =>{
-    if(user)
+    if(user && !user.roles.includes("ADMIN"))
       return fetchFavorites();
   })
 
@@ -62,6 +67,7 @@ const Index = () => {
   };
 
   if (user) {
+    isStaff = user.roles.includes('ADMIN') || user.roles.includes('CM') || user.roles.includes('PRODUCER') ? true : false;
     isAdmin = user.roles.includes('ADMIN') ;
   }
 
@@ -86,7 +92,7 @@ const Index = () => {
         {games?.data.map((game) => {
           // const isFavorite = gameIdsInFavorites.includes(game.id);
 
-          return <Game {...game} isUser={user} isFavorite={gameIdsInFavorites.includes(game.id)} removeAction={(id) => localRemoveFromFavorites(id)} addAction={(id) => localAddToFavorites(id)} key={nanoid()} />;
+          return <Game {...game} isUser={user} isAdmin={isAdmin} isFavorite={gameIdsInFavorites.includes(game.id)} removeAction={(id) => localRemoveFromFavorites(id)} addAction={(id) => localAddToFavorites(id)} key={nanoid()} />;
         })}
       </div>
     </div>

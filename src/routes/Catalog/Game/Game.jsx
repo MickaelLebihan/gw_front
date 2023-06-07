@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './game.scss';
 import { nanoid } from 'nanoid';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-export default function Game({isUser, id, title, description, gameEngine, platforms, isFavorite, addAction, removeAction}) {
+const apiURL = process.env.REACT_APP_API_URL;
+
+export default function Game({isUser, isAdmin, id, title, gameEngine, platforms, isFavorite, addAction, removeAction, slug_Title}) {
   const platformsList = platforms.map((platform) => (
     <div className={`platform ${platform.name}`} key={nanoid()}>
       {platform.name}
@@ -18,18 +21,33 @@ export default function Game({isUser, id, title, description, gameEngine, platfo
     removeAction(id)
     return "remove"
   }
+
+  const [favoriteCount, setFavoriteCount] = useState(0)
+  const [favoriteLoaded, setFavoriteLoaded] = useState(false)
+
+  var x = isAdmin && axios.get(`${apiURL}/api/game/${slug_Title}/countFavorites`).then(response =>{
+    setFavoriteLoaded(true)
+    return setFavoriteCount(response.data)
+  })
+
+
+  // if(!isLoadingFavoritesCount)
+    // console.log(favoriteCount.data)
+
+  // var x = axios.get(`${apiURL}/api/game/${slug_Title}/countFavorites`).then(response => console.log(response.data))
   
-  const addToFavorite = (id) => <button onClick={() => localAddAction(id)}><img src='/assets/nofavs.png'alt='not in favorites'/></button>
-  const removeFromfavorite = (id) => <button onClick={() => localRemoveAction(id)}><img src='/assets/favs.png'alt='in favorites'/></button>
+  const addToFavorite = () => <button onClick={() => localAddAction(id)}><img src='/assets/nofavs.png'alt='not in favorites'/></button>
+  const removeFromfavorite = () => <button onClick={() => localRemoveAction(id)}><img src='/assets/favs.png'alt='in favorites'/></button>
 
   return (
       <div className="game">
-          {isUser ?
+          {isUser && !isAdmin ?
               isFavorite ? removeFromfavorite(id) : addToFavorite(id)
             :
             null
           }
-          <Link to={`/game/${id}`} className="game-link">
+          { !isUser || !isAdmin ? null : isAdmin && favoriteLoaded ? <p>favoris: {favoriteCount}</p> : <p>favoris: ...</p>}
+          <Link to={`/game/${slug_Title}`} className="game-link">
         <header>
           <h3>{title}</h3>
           <div className="info">

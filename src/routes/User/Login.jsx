@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import { useQueryClient } from 'react-query';
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -9,6 +9,7 @@ const apiURL = process.env.REACT_APP_API_URL;
 export default function Index() {
 
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
 
 
     function loadUser(e){
@@ -31,12 +32,13 @@ export default function Index() {
             })
         })
         .then(()=>{
-            Navigate("/")
+            navigate("/")
         })
     }
 
   return (
     <>
+    <h2>Se connecter</h2>
         <form onSubmit={(e) => loadUser(e)}>
 
             <div className="inputGroup">
@@ -48,10 +50,10 @@ export default function Index() {
                 <input type='password' id='password' name='password' />
             </div>
 
-            <button>ok</button>
+            <button>se connecter</button>
 
         </form>
-        <Link to={""}>S'inscrire</Link>
+        <Link to={"/user/register"}>S'inscrire</Link>
     </>
     )
 }

@@ -6,7 +6,7 @@ import { Link, useParams } from 'react-router-dom'
 import './game.scss'
 
 const apiURL = process.env.REACT_APP_API_URL;
-
+// axios.get(`${apiURL}/api/game/${id}`)
 
 export default function Index() {
 
