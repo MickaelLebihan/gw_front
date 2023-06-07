@@ -36,8 +36,8 @@ export default function Game({isUser, isAdmin, id, title, gameEngine, platforms,
 
   // var x = axios.get(`${apiURL}/api/game/${slug_Title}/countFavorites`).then(response => console.log(response.data))
   
-  const addToFavorite = () => <button onClick={() => localAddAction(id)}><img src='/assets/nofavs.png'alt='not in favorites'/></button>
-  const removeFromfavorite = () => <button onClick={() => localRemoveAction(id)}><img src='/assets/favs.png'alt='in favorites'/></button>
+  const addToFavorite = () => <button onClick={() => localAddAction(id)}><img src='/assets/nofavs.png' alt='not in favorites'/></button>
+  const removeFromfavorite = () => <button onClick={() => localRemoveAction(id)}><img src='/assets/favs.png' alt='in favorites'/></button>
 
   return (
       <div className="game">
