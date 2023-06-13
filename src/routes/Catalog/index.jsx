@@ -1,6 +1,8 @@
 import { nanoid } from 'nanoid';
 import axios from 'axios';
 
+import SearchForm from '../../components/SearchForm'
+
 import Game from './Game/Game';
 
 import './index.scss';
@@ -81,6 +83,10 @@ const Index = () => {
   }
 
   const gameIdsInFavorites = favorites?.map((favorite) => favorite.id) || [];
+
+  function getResult(result){
+    console.log(result)
+  }
   
 
   return (
@@ -88,12 +94,27 @@ const Index = () => {
       {isAdmin && <Link to={'/game/add'}>ajouter un jeu</Link>}
 
       <h2>Catalogue</h2>
+
+      <SearchForm result={() => getResult()}/>
+
       <div className="games-row">
-        {games?.data.map((game) => {
+
+        {/* {console.log(games.data)} */}
+
+        {Array.isArray(games.data) ? games.data.map((game) => {
           // const isFavorite = gameIdsInFavorites.includes(game.id);
 
-          return <Game {...game} isUser={user} isAdmin={isAdmin} isFavorite={gameIdsInFavorites.includes(game.id)} removeAction={(id) => localRemoveFromFavorites(id)} addAction={(id) => localAddToFavorites(id)} key={nanoid()} />;
-        })}
+              return <Game
+                      {...game}
+                      isUser={user}
+                      isAdmin={isAdmin}
+                      isFavorite={gameIdsInFavorites.includes(game.id)}
+                      removeAction={(id) => localRemoveFromFavorites(id)}
+                      addAction={(id) => localAddToFavorites(id)}
+                      key={nanoid()} />;
+          }) : null
+        }
+
       </div>
     </div>
   );
