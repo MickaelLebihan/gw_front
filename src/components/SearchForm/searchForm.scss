@@ -1,0 +1,12 @@
+.searchForm{
+    display: block;
+    form{
+        display: flex;
+        // justify-content: space-between;
+        .formInput{
+            display: flex;
+            flex-direction: column;
+            margin-right: 10px;
+        }
+    }
+}

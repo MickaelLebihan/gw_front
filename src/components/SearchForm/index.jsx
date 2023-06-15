@@ -3,15 +3,38 @@ import { nanoid } from 'nanoid';
 import React, {useEffect, useState} from 'react'
 import { useQuery } from 'react-query';
 
+import './searchForm.scss'
+
 const apiURL = process.env.REACT_APP_API_URL;
 
 
-export default function Index({result}) {
+export default function Index({onChange}) {
 
     const {isLoading, data } = useQuery(["gameAuxiliaryData"], () => GetData())
+
+    const [selectGameEngine, setSelectGameEngine] = useState(false)
+    const [selectDevStatus, setSelectDevStatus] = useState(false)
     
-    const [searchData, setSearchData] = useState(searchParams)
+    var searchParams = {
+        title: null,
+        devstatus: null,
+        genres: null,
+        platforms: null
+    }
+    const [searchData, setSearchData] = useState({})
+
+    useEffect(()=> {
+        // if (searchData.title.length > 2)
+            // filterResult(searchData)
+            var data = searchData
+        console.log(searchData)
+        updateData(data)
+        return onChange(data)
+    }, [searchData])
+
     
+    
+    /* génére le formulaire a partir des données de la BDD  */
 
     async function GetData(){
 
@@ -21,9 +44,6 @@ export default function Index({result}) {
 
         return auxData
     }
-
-
-
     
     if (isLoading){
         return <p>form loading</p>
@@ -37,7 +57,7 @@ export default function Index({result}) {
             return <option
                     key={nanoid()}
                     value={devstatus.id}
-                    selected={searchData?.devStatus === devstatus.id ? true : null }>
+                    selected={searchData?.devstatus == devstatus.id ? true : null }>
                 {devstatus.name}
             </option>
         })
@@ -45,7 +65,7 @@ export default function Index({result}) {
             return <option
                     key={nanoid()}
                     value={gameengine.id}
-                    selected={searchData?.gameengines === gameengine.id ? true : null }>
+                    selected={searchData?.gameEngines == gameengine.id ? true : null }>
                 {gameengine.name}
             </option>
         })
@@ -68,12 +88,8 @@ export default function Index({result}) {
     }
 
 
-    var searchParams = {
-        title: null,
-        devStatus: null,
-        genres: null,
-        platforms: null
-    }
+    /* crée un objet avec les parametres séléctionné du formulaire */
+
 
     
     function setParameter(e){
@@ -82,8 +98,7 @@ export default function Index({result}) {
         // data.title = e.target.title.value
         
         // console.log(searchData)
-        switch (e.target.name)
-        {
+        switch (e.target.name){
             case "gameEngines":
                 data = {...data,  [e.target.name]: e.target.value }
                 break
@@ -98,8 +113,13 @@ export default function Index({result}) {
                     element.selected && selectedPlatforms.push(parseInt(element.value))
                 }
 
-                data = {...data,  [e.target.name]: selectedPlatforms }
+                if (selectedPlatforms.length === 0){
+                    delete data.platforms
+                    break
+                }
+                    data = {...data,  [e.target.name]: selectedPlatforms }
                 break
+
             case "genres":
                 var selectLength = e.target.options.length
                 var options = e.target.options
@@ -111,73 +131,139 @@ export default function Index({result}) {
                     selectedElement.selected && selectedGenres.push(parseInt(selectedElement.value))
                 }
 
+                if (selectedGenres.length === 0){
+                    delete data.genres
+                    break
+                }
+
                 data = {...data,  [e.target.name]: selectedGenres }
                 break
             case "title":
-                var title = e.target.value !== "" ? e.target.value : null 
-                data = {...data,  [e.target.name]: title }
+                    var title = e.target.value !== "" ? e.target.value : null 
+                    data = {...data,  [e.target.name]: title }
                 break
-            case "devStatus":
-                data = {...data,  [e.target.name]: e.target.value }
+            case "devstatus":
+                    data = {...data,  [e.target.name]: e.target.value }
                 break
             default:
                 break
         }
 
+        updateData(data)
+    }
+
+
+    function testData(){
+        console.log(searchData)
+        writeParams(searchData)
+        onChange(searchData)
+    }
+
+    // async function filterResult (params){
+    //     console.log(params)
+    //     return await axios.get(`${apiURL}/api/games`, { params }).then(response => {console.log(response.data)})
+    // }
+
+    function updateData(data){
         setSearchData(data)
     }
 
-    function testData(){
-        result(searchData)
-        // console.log(searchData)
+    function isChecked(name){
+        switch (name) {
+            case "gameengine":
+                setSelectGameEngine(!selectGameEngine)
+                console.log(selectGameEngine)
+                var data = searchData
+
+                    if (searchData){
+                        if(!selectGameEngine === false){
+                            delete data.gameEngines
+                            break
+                        }
+                    }
+                data.gameEngines = "1"
+                updateData(data)
+                break
+
+            case "devstatus":
+                setSelectDevStatus(!selectDevStatus)
+                var data = searchData
+                if (searchData){
+                    if(!selectDevStatus === false){
+                        delete data.devstatus
+                        break
+                    }
+                }
+                data.devstatus = "1"
+                updateData(data)
+                break
+
+            default:
+                
+        }
+        console.log(searchData)
     }
 
-    async function filterResult (params){
-        console.log(params)
-        return await axios.get(`${apiURL}/api/games`, { params }).then(response => {console.log(response.data)})
+    function writeParams(params){
+        var theString = "Votre recherche: les jeux"
+        for (var param in params){
+            if (Array.isArray(params[param])){
+                var array = params[param]
+                console.log("is array")
+                for (var j in array){
+                    console.log(j)
+                }
+            }
+            console.log(param, params[param])
+        }
     }
     
-    useEffect(()=> {
-        // if (searchData.title.length > 2)
-            // filterResult(searchData)
-            console.log(searchData)
-            result(searchData)
-    }, [searchData])
 
   return (
-    <>
+    <div className='searchForm'>
         <button onClick={()=>testData()}>test !</button>
-        <form onChange={(e) => setParameter(e)}>
+        <form >
             <div className="formInput">
                 <label htmlFor="title">titre</label>
-                <input type="text" name="title" /*onChange={(e) => setParameter(e, "title")}*//>
+                <input type="text" name="title" onChange={(e) => setParameter(e, "title")}/>
             </div>
             <div className="formInput">
                 <label htmlFor="genres">genres</label>
-                <select name="genres" id="genres" /* onChange={(e) => setParameter(e, "genre")} */ multiple>
+                <select name="genres" id="genres"  onChange={(e) => setParameter(e, "genre")}  multiple>
                     {genres}
                 </select>
             </div>
             <div className="formInput">
                 <label htmlFor="platforms">supports</label>
-                <select name="platforms" id="platforms" /* onChange={(e) => setParameter(e, "genre")} */ multiple>
+                <select name="platforms" id="platforms"  onChange={(e) => setParameter(e, "genre")}  multiple>
                     {platforms}
                 </select>
             </div>
             <div className="formInput">
-                <label htmlFor="devStatus">devStatus</label>
-                <select name="devStatus" id="devStatus" /* onChange={(e) => setParameter(e, "devStatus")} */>
-                    {devstatuses}
-                </select>
+                <div className="formLabel">
+                    <label htmlFor="devstatus">devStatus</label>
+                    <input type="checkbox" name="selectDevStatus" id="selectDevStatus" onChange={()=>isChecked("devstatus")} checked={selectDevStatus}/>
+                </div>
+                { selectDevStatus &&
+
+                    <select name="devstatus" id="devstatus"  onChange={(e) => setParameter(e, "devStatus")} >
+                        {devstatuses}
+                    </select>
+                }
             </div>
             <div className="formInput">
-                <label htmlFor="gameEngines">game engines</label>
-                <select name="gameEngines" id="gameEngines" /* onChange={(e) => setParameter(e, "devStatus")} */>
-                    {gameengines}
-                </select>
+                <div className="formLabel">
+                    <label htmlFor="gameEngines">game engines</label>
+                    <input type="checkbox" name="selectGameEngine" id="selectGameEngine" onChange={()=>isChecked("gameengine")} checked={selectGameEngine}/>
+                </div>
+                { selectGameEngine &&
+                    <select name="gameEngines" id="gameEngines"  onChange={(e) => setParameter(e, "devStatus")} >
+                        {gameengines}
+                    </select>
+                }
             </div>
 
         </form>
-    </>
+    </div>
   )
 }

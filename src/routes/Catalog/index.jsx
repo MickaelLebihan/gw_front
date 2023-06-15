@@ -4,12 +4,14 @@ import axios from 'axios';
 import SearchForm from '../../components/SearchForm'
 
 import Game from './Game/Game';
+import qs from 'qs'
 
 import './index.scss';
 import { Link } from 'react-router-dom';
 
 import {getFavorites, addToFavorites, removeFromFavorites} from '../../utils/favorites'
 import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useState } from 'react';
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -21,6 +23,7 @@ const Index = () => {
   // var isStaff = false
 
   const { data: user } = useQuery('user');
+  const [searchData, setSearchData] = useState()
 
   const fetchFavorites = async () => {
     if (user && !user.roles.includes("ADMIN")) {
@@ -31,17 +34,29 @@ const Index = () => {
 
   const queryClient = useQueryClient();
 
-  const fetchGameData = async () => {
-    const data = axios.get(`${apiURL}/api/games`);
+  const fetchGameData = async (searchParams) => {
+    searchParams = {
+      // title:"suikoden",
+      genres:[2],
+      platforms:[3],
+      // devStatus: 2
+    }
+    console.log(searchParams)
+    const data = axios.get(`${apiURL}/api/games`, {
+      params: searchParams,
+      paramsSerializer: params => {
+      return qs.stringify(params)
+    }
+  });
     return data
   }
   
-  const { isLoading: isLoadingGames, data: games, isError: isErrorGames, error: errorGames } = useQuery('games', fetchGameData);
+  const { isLoading: isLoadingGames, data: games, isError: isErrorGames, error: errorGames } = useQuery('games', fetchGameData(searchData));
 
-  const { isLoading: isLoadingFavorites, data: favorites, isError: isErrorFavorites, error: errorFavorites } = useQuery('favorites', () =>{
-    if(user && !user.roles.includes("ADMIN"))
-      return fetchFavorites();
-  })
+  // const { isLoading: isLoadingFavorites, data: favorites, isError: isErrorFavorites, error: errorFavorites } = useQuery('favorites', () =>{
+  //   if(user && !user.roles.includes("ADMIN"))
+  //     return fetchFavorites();
+  // })
 
 
   const addFavoriteMutation = useMutation((gameId) => {
@@ -84,8 +99,9 @@ const Index = () => {
 
   const gameIdsInFavorites = favorites?.map((favorite) => favorite.id) || [];
 
-  function getResult(result){
-    console.log(result)
+  function handleChange(data){
+    console.log("truc",data)
+    setSearchData(data)
   }
   
 
@@ -95,7 +111,9 @@ const Index = () => {
 
       <h2>Catalogue</h2>
 
-      <SearchForm result={() => getResult()}/>
+      
+
+      <SearchForm onChange={handleChange}/>
 
       <div className="games-row">
 
