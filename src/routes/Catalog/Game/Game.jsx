@@ -55,6 +55,7 @@ export default function Game({isUser, isAdmin, id, title, gameEngine, platforms,
             <div className="platforms">{platformsList}</div>
           </div>
         </header>
+        <img src={`/assets/${slug_Title}/cover.jpg`} alt={`${title} cover`} />
     </Link>
       </div>
   );
