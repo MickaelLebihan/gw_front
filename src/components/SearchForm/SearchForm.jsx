@@ -27,7 +27,7 @@ export default function Index({onChange}) {
         // if (searchData.title.length > 2)
             // filterResult(searchData)
             var data = searchData
-        console.log(searchData)
+        // console.log(searchData)
         updateData(data)
         return onChange(data)
     }, [searchData])
@@ -65,7 +65,7 @@ export default function Index({onChange}) {
             return <option
                     key={nanoid()}
                     value={gameengine.id}
-                    selected={searchData?.gameEngines == gameengine.id ? true : null }>
+                    selected={searchData?.gameEngine == gameengine.id ? true : null }>
                 {gameengine.name}
             </option>
         })
@@ -94,12 +94,12 @@ export default function Index({onChange}) {
     
     function setParameter(e){
         var data = searchData
-        console.log(searchData)
+        // console.log(searchData)
         // data.title = e.target.title.value
         
         // console.log(searchData)
         switch (e.target.name){
-            case "gameEngines":
+            case "gameEngine":
                 data = {...data,  [e.target.name]: e.target.value }
                 break
             case "platforms":
@@ -139,7 +139,12 @@ export default function Index({onChange}) {
                 data = {...data,  [e.target.name]: selectedGenres }
                 break
             case "title":
-                    var title = e.target.value !== "" ? e.target.value : null 
+                var title = e.target.value !== "" ? e.target.value : null 
+                    if(title === null){
+                        delete data.title
+                        data = {...data}
+                        break
+                    }
                     data = {...data,  [e.target.name]: title }
                 break
             case "devstatus":
@@ -177,11 +182,11 @@ export default function Index({onChange}) {
 
                     if (searchData){
                         if(!selectGameEngine === false){
-                            delete data.gameEngines
+                            delete data.gameEngine
                             break
                         }
                     }
-                data.gameEngines = "1"
+                data.gameEngine = "1"
                 updateData(data)
                 break
 
@@ -201,11 +206,11 @@ export default function Index({onChange}) {
             default:
                 
         }
-        console.log(searchData)
+        // console.log(searchData)
     }
 
     function writeParams(params){
-        var theString = "Votre recherche: les jeux"
+        // var theString = "Votre recherche: les jeux"
         for (var param in params){
             if (Array.isArray(params[param])){
                 var array = params[param]
@@ -253,11 +258,11 @@ export default function Index({onChange}) {
             </div>
             <div className="formInput">
                 <div className="formLabel">
-                    <label htmlFor="gameEngines">game engines</label>
+                    <label htmlFor="gameEngine">game engines</label>
                     <input type="checkbox" name="selectGameEngine" id="selectGameEngine" onChange={()=>isChecked("gameengine")} checked={selectGameEngine}/>
                 </div>
                 { selectGameEngine &&
-                    <select name="gameEngines" id="gameEngines"  onChange={(e) => setParameter(e, "devStatus")} >
+                    <select name="gameEngine" id="gameEngine"  onChange={(e) => setParameter(e, "gameEngine")} >
                         {gameengines}
                     </select>
                 }

@@ -23,7 +23,7 @@ export default function Index() {
     if (isLoading) {
         return <h2>En cours de chargement</h2>
     } else {
-        const {id, title, description} = data.data
+        const {id, Title, description, Slug_Title} = data.data
         if(user){
             var actionGameButton = user.roles.includes("ADMIN") && <>
                 <Link to={'/game/edit/'+id} >éditer le jeu</Link>
@@ -33,7 +33,8 @@ export default function Index() {
         return ( 
             <div className='game'>
                 {actionGameButton}
-                <h3>{title}</h3>
+                <h3>{Title}</h3>
+                    <img src={`/assets/games/${Slug_Title}/cover.jpg`} alt={`${Title} cover`} />
                 <p>{description}</p>
             </div>
            )

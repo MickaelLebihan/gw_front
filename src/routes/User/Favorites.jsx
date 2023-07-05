@@ -1,7 +1,7 @@
 import React from 'react'
 import UserMenu from './UserMenu'
 
-import {getFavorites, removeFromFavorites} from '../../utils/favorites'
+import {getFavorites, handleFavorites} from '../../utils/favorites'
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 
 export default function Favorites() {
@@ -13,7 +13,7 @@ export default function Favorites() {
   };
 
   const removeFavoriteMutation = useMutation((gameId) => {
-    return removeFromFavorites(gameId);
+    return handleFavorites(gameId, "remove");
   }, {
     onSuccess: () => {
       queryClient.refetchQueries('favorites'); // Rafraîchir uniquement la requête 'favorites'

@@ -3,26 +3,20 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { useQuery} from 'react-query'
 import Header from './components/Header'
 import Home from './routes/Home'
-import Catalog from './routes/Catalog'
+import Catalog from './routes/Catalog/Catalog-2'
 import Profile from './routes/User/Profile'
 import Favorites from './routes/User/Favorites'
 import Register from './routes/User/Register'
 import Login from './routes/User/Login'
-import Game from './routes/Game'
-import AddGame from './routes/Game/Add'
+import Game from './routes/Game/Game'
+import AddGame from './routes/Game/Add/Add-Game'
 // import { useState } from 'react';
 
-
-
 function App() {
-  
-  
   const {data: user} = useQuery('user')
-  // const {loaded, setLoaded} = useState(false)
 
 
   if(user){
-    // console.log(user)
    if (user.roles.includes("ADMIN")){
       // setLoaded(true)
     }

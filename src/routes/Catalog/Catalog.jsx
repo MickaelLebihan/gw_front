@@ -1,17 +1,17 @@
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 
-import SearchForm from '../../components/SearchForm'
-
-import Game from './Game/Game';
 import qs from 'qs'
 
-import './index.scss';
-import { Link } from 'react-router-dom';
+import SearchForm from '../../components/SearchForm/SearchForm'
+import Game from './Catalog-Game/Catalog-Game';
+import {getFavorites, handleFavorites} from '../../utils/favorites'
 
-import {getFavorites, addToFavorites, removeFromFavorites} from '../../utils/favorites'
-import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { useState } from 'react';
+import './catalog.scss';
+
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -26,6 +26,7 @@ const Index = () => {
   const [searchData, setSearchData] = useState()
 
   const fetchFavorites = async () => {
+    console.log("recheche favoris...")
     if (user && !user.roles.includes("ADMIN")) {
       
       return getFavorites();
@@ -35,12 +36,12 @@ const Index = () => {
   const queryClient = useQueryClient();
 
   const fetchGameData = async (searchParams) => {
-    searchParams = {
-      // title:"suikoden",
-      genres:[2],
-      platforms:[3],
-      // devStatus: 2
-    }
+    // searchParams = {
+    //   title:"suikoden",
+    //   genres:[2],
+    //   platforms:[3],
+    //   devStatus: 2
+    // }
     console.log(searchParams)
     const data = axios.get(`${apiURL}/api/games`, {
       params: searchParams,
@@ -53,35 +54,20 @@ const Index = () => {
   
   const { isLoading: isLoadingGames, data: games, isError: isErrorGames, error: errorGames } = useQuery('games', fetchGameData(searchData));
 
-  // const { isLoading: isLoadingFavorites, data: favorites, isError: isErrorFavorites, error: errorFavorites } = useQuery('favorites', () =>{
-  //   if(user && !user.roles.includes("ADMIN"))
-  //     return fetchFavorites();
-  // })
+  const { isLoading: isLoadingFavorites, data: favorites, isError: isErrorFavorites, error: errorFavorites } = useQuery('favorites', () =>{
+    if(user && !user.roles.includes("ADMIN"))
+      return fetchFavorites();
+  })
 
 
-  const addFavoriteMutation = useMutation((gameId) => {
-    return addToFavorites(gameId);
+  const handleFavoriteMutation = useMutation((gameId, action) => {
+    return handleFavorites(gameId, action);
   }, {
     onSuccess: () => {
       queryClient.refetchQueries('favorites'); // Rafraîchir uniquement la requête 'favorites'
     },
   });
 
-  const removeFavoriteMutation = useMutation((gameId) => {
-    return removeFromFavorites(gameId);
-  }, {
-    onSuccess: () => {
-      queryClient.refetchQueries('favorites'); // Rafraîchir uniquement la requête 'favorites'
-    },
-  });
-
-  const localAddToFavorites = (gameId) => {
-    addFavoriteMutation.mutate(gameId);
-  };
-
-  const localRemoveFromFavorites = (gameId) => {
-    removeFavoriteMutation.mutate(gameId);
-  };
 
   if (user) {
     // isStaff = user.roles.includes('ADMIN') || user.roles.includes('CM') || user.roles.includes('PRODUCER') ? true : false;
@@ -100,7 +86,7 @@ const Index = () => {
   const gameIdsInFavorites = favorites?.map((favorite) => favorite.id) || [];
 
   function handleChange(data){
-    console.log("truc",data)
+    // console.log("truc",data)
     setSearchData(data)
   }
   
@@ -127,8 +113,7 @@ const Index = () => {
                       isUser={user}
                       isAdmin={isAdmin}
                       isFavorite={gameIdsInFavorites.includes(game.id)}
-                      removeAction={(id) => localRemoveFromFavorites(id)}
-                      addAction={(id) => localAddToFavorites(id)}
+                      handleFavoriteAction={(id, action) => handleFavoriteMutation.mutate(id, action)}
                       key={nanoid()} />;
           }) : null
         }

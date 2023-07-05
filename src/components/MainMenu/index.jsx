@@ -21,7 +21,7 @@ export default function Index() {
       <ul>
         <li><Link className='btn' to={"/user/profil"} >profil</Link></li>
         {
-        user && !user.roles.includes("ADMIN") &&
+        user && user.roles.includes("USER") &&
           (<li><Link className='btn' to={"/user/favorites"} >favoris</Link></li>)
         }
         <li><Link className='btn' onClick={logout} /*to={"/logout"}*/ >log out</Link></li>

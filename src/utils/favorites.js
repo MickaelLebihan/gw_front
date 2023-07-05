@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+import {loadUser} from '../utils/user'
+
+
+
 const apiURL = process.env.REACT_APP_API_URL;
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
@@ -14,22 +18,14 @@ export async function getFavorites() {
     }
 }
 
-export async function addToFavorites(gameId) {
+export async function handleFavorites(gameId, action, queryClient) {
+    // action must be "add" or "remove"
+    console.log(gameId, action)
     try {
-        const response = await axios.post(`${apiURL}/user/favorites/add`, { gameId });
-        return response.data;
+        await axios.post(`${apiURL}/user/favorites/${action}`, { gameId });
+        await loadUser(queryClient)
     } catch (error) {
-        console.error("Impossible d'ajouter le jeu aux favoris :", error);
-        throw error;
-    }
-}
-
-export async function removeFromFavorites(gameId) {
-    try {
-        const response = await axios.post(`${apiURL}/user/favorites/remove`, { gameId });
-        return response.data;
-    } catch (error) {
-        console.error("Impossible de supprimer le jeu des favoris :", error);
+        console.error("Impossible d'ajouter/supprimer le jeu au favoris : ", error);
         throw error;
     }
 }

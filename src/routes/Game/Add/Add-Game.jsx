@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 
-import './addGame.scss'
+import './add-game.scss'
 import { Link } from 'react-router-dom';
 
 const apiURL = process.env.REACT_APP_API_URL;

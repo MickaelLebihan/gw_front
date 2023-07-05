@@ -5,6 +5,11 @@
     grid-column: 1/2;
 
     border: 1px solid #9e9e9e;
+    .favButton{
+        cursor: pointer;
+        border: 1px solid #000;
+        width: 20px;
+    }
     header{
         position: relative;
 
@@ -16,8 +21,12 @@
             color: orange;
             background-color: #f7f7f7;
 
+            font-size: 1.5em;
+
             border-bottom: 1px solid #8d8d8d;
         }
+
+        
         .info{
             padding: 5px;
             display: flex;
