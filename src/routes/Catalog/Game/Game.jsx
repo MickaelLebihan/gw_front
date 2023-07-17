@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const apiURL = process.env.REACT_APP_API_URL;
 
-export default function Game({isUser, isAdmin, id, title, gameEngine, platforms, isFavorite, addAction, removeAction, slug_Title}) {
+export default function Game({isUser, isAdmin, id, title, gameEngine, platforms, isFavorite, addAction, removeAction, slug_Title, budget}) {
   const platformsList = platforms.map((platform) => (
     <div className={`platform ${platform.name}`} key={nanoid()}>
       {platform.name}
@@ -30,7 +30,6 @@ export default function Game({isUser, isAdmin, id, title, gameEngine, platforms,
     return setFavoriteCount(response.data)
   })
 
-
   // if(!isLoadingFavoritesCount)
     // console.log(favoriteCount.data)
 
@@ -38,14 +37,15 @@ export default function Game({isUser, isAdmin, id, title, gameEngine, platforms,
   
   const addToFavorite = () => <button onClick={() => localAddAction(id)}><img src='/assets/nofavs.png' alt='not in favorites'/></button>
   const removeFromfavorite = () => <button onClick={() => localRemoveAction(id)}><img src='/assets/favs.png' alt='in favorites'/></button>
-
   return (
       <div className="game">
-          {isUser && !isAdmin ?
+          {isUser && isUser.roles[0] == "USER" ?
               isFavorite ? removeFromfavorite(id) : addToFavorite(id)
             :
             null
           }
+
+          
           { !isUser || !isAdmin ? null : isAdmin && favoriteLoaded ? <p>favoris: {favoriteCount}</p> : <p>favoris: ...</p>}
           <Link to={`/game/${slug_Title}`} className="game-link">
         <header>

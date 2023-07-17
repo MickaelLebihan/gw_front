@@ -37,7 +37,7 @@ const Index = () => {
   const { isLoading: isLoadingGames, data: games, isError: isErrorGames, error: errorGames } = useQuery('games', fetchGameData);
 
   const { isLoading: isLoadingFavorites, data: favorites, isError: isErrorFavorites, error: errorFavorites } = useQuery('favorites', () =>{
-    if(user && !user.roles.includes("ADMIN"))
+    if(user && !user.roles.includes("ADMIN")&& !user.roles.includes("PRODUCER"))
       return fetchFavorites();
   })
 
