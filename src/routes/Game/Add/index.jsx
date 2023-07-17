@@ -16,10 +16,15 @@ export default function Index() {
     const [newEngine, setNewEngine] = useState(false)
     const [newPlatform, setNewPlatform] = useState(false)
     const [newGenre, setNewGenre] = useState(false)
+
+    const [budget, setBudget] = useState(10000)
     
     const {isLoading, data } = useQuery(["gameAuxiliaryData"], () => GetData())
     
 
+    function changeBudget(e){
+        setBudget(e.target.value)
+    }
 
     async function GetData(){
 
@@ -95,6 +100,7 @@ export default function Index() {
 
         const game = {
             Title: form.title.value,
+            Budget: form.budget.value,
             Description: form.description.value,
             MinPlayer: form.minPlayer.value,
             MaxPlayer: form.maxPlayer.value,
@@ -120,13 +126,23 @@ export default function Index() {
     
     return (
         <div className='addGameForm'>
+
             <Link to={'/user/profil'}>retour au dashboard</Link>
+
             <h2>Ajouter un jeu</h2>
+
             <form onSubmit={(e)=>sendData(e)}>
+
                 <div className='simpleFormField'>
                     <label htmlFor="title">titre</label>
-                    <input type="text" id='titlte' name='title'/>
+                    <input type="text" id='title' name='title'/>
                 </div>
+
+                <div className='simpleFormField'>
+                    <label htmlFor="budget">budget</label>
+                    <input type="number" id='budget' name='budget' min={0} step={1000} value={budget} onChange={(e) => changeBudget(e)}/>
+                </div>
+
                 <div className='simpleFormField'>
                     <label htmlFor="description">description</label>
                     <textarea type="text" id='description' name='description'/>
@@ -135,11 +151,11 @@ export default function Index() {
                     <h4>Nombre de joueur</h4>
                     <div>
                         <label htmlFor="minPlayer">min</label>
-                        <input type="number" id='minPlayer' name='minPlayer'/>
+                        <input type="number" id='minPlayer' name='minPlayer' value={1}/>
                     </div>
                     <div>
                         <label htmlFor="maxPlayer">max</label>
-                        <input type="number" id='maxPlayer' name='maxPlayer'/>
+                        <input type="number" id='maxPlayer' name='maxPlayer' value={1}/>
                     </div>
                 </div>
 
