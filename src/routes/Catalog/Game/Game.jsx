@@ -39,7 +39,7 @@ export default function Game({isUser, isAdmin, id, title, gameEngine, platforms,
   const removeFromfavorite = () => <button onClick={() => localRemoveAction(id)}><img src='/assets/favs.png' alt='in favorites'/></button>
   return (
       <div className="game">
-          {isUser && isUser.roles[0] == "USER" ?
+          {isUser && isUser.roles[0] === "USER" ?
               isFavorite ? removeFromfavorite(id) : addToFavorite(id)
             :
             null

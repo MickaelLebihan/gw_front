@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom'
 
-import Add_Budget from '../Game/Add_Budget/Add_Budget'
+import AddBudget from './AddBudget/AddBudget'
 
 import './game.scss'
 
@@ -28,7 +28,7 @@ export default function Index() {
         return <h2>En cours de chargement</h2>
     } else {
         
-        const {id, title, description, slug_Title, budgets} = data.data
+        const {id, title, description, budgets} = data.data
 
         let budgetsElement = null
 
@@ -52,7 +52,7 @@ export default function Index() {
                         <p>{lastBudget.message}</p>
                     </div>
                     <button onClick={handleBudgetFormDisplay}>modifier le budget</button>
-                    {budgetDisplay ? <Add_Budget game= {data.data} /> : null}
+                    {budgetDisplay ? <AddBudget game= {data.data} /> : null}
                 </>
 
                 break
