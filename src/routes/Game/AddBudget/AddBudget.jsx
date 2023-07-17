@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 const apiURL = process.env.REACT_APP_API_URL;
 
-export default function Add_Budget({game}) {
+export default function AddBudget({game}) {
 
   function prependZero(number){
     return number < 10 ? '0'+number : number

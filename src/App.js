@@ -10,7 +10,7 @@ import Register from './routes/User/Register'
 import Login from './routes/User/Login'
 import Game from './routes/Game/Game'
 import AddGame from './routes/Game/Add'
-import Add_Budget from './routes/Game/Add_Budget/Add_Budget'
+import AddBudget from './routes/Game/AddBudget/AddBudget'
 // import { useState } from 'react';
 
 
@@ -47,7 +47,7 @@ function App() {
               </Route>
               <Route path="games" element={<Catalog/>}/>
               <Route path="/game/:id" element={<Game />} />
-              <Route path="/game/:slug/add_budget" element={<Add_Budget />} />
+              <Route path="/game/:slug/addbudget" element={<AddBudget />} />
               <Route path="/game/add" element={user !== undefined && user.roles.includes("ADMIN") ? <AddGame /> : <Navigate to="/" replace />} />
               <Route
                     path="*"
