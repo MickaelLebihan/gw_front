@@ -117,12 +117,7 @@ export default function Index() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
         
 
-        axios.post(`${apiURL}/api/game/add`, game,
-            {
-                headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        })
+        axios.post(`${apiURL}/api/game/add`, game)
         .then(response => {
             console.log('Objet créé avec succès:', response.data);
           })
