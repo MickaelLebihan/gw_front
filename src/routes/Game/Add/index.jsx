@@ -114,11 +114,14 @@ export default function Index() {
 
         console.log(game)
 
-        axios.defaults.headers.common['authorization'] = `Bearer ${localStorage.getItem('token')}`
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
         // axios.defaults.headers.common['Access-Control-Allow-Origin'] = `*`
         
 
-        axios.post(`${apiURL}/api/game/add`, game)
+        axios.post(`${apiURL}/api/game/add`, game, {
+            headers: {
+            'Content-Type': 'application/json'
+          }})
         .then(response => {
             console.log('Objet créé avec succès:', response.data);
           })
