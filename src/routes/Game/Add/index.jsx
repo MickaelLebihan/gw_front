@@ -119,7 +119,8 @@ export default function Index() {
 
         axios.post(`${apiURL}/api/game/add`, game,
         {headers: {
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "*",
+            'Access-Control-Allow-Credentials':true
         }})
         .then(response => {
             console.log('Objet créé avec succès:', response.data);
