@@ -48,8 +48,7 @@ function App() {
               <Route path="games" element={<Catalog/>}/>
               <Route path="/game/:id" element={<Game />} />
               <Route path="/game/:slug/addbudget" element={<AddBudget />} />
-              {/* <Route path="/game/add" element={user !== undefined && user.roles.includes("ADMIN") ? <AddGame /> : <Navigate to="/" replace />} /> */}
-              <Route path="/game/add" element={<AddGame />} />
+              <Route path="/game/add" element={user !== undefined && user.roles.includes("ADMIN") ? <AddGame /> : <Navigate to="/" replace />} />
               <Route
                     path="*"
                     element={<Navigate to="/" replace />}

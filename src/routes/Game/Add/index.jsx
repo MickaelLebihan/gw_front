@@ -115,7 +115,7 @@ export default function Index() {
         console.log(game)
 
         // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-        // axios.defaults.headers.common['Access-Control-Allow-Origin'] = `Bearer ${localStorage.getItem('token')}`
+        axios.defaults.headers.common['Access-Control-Allow-Origin'] = `*`
         
 
         axios.post(`${apiURL}/api/game/add`, game)
